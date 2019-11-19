@@ -10,6 +10,7 @@ public void setup() {
   time = 0;
   starship = new Spaceship();
   size(600, 600);
+  strokeWeight(1);
   background(0);
   for(int i = 0; i < stars.length; i++){
     stars[i] = new Star();
