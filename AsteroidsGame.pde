@@ -34,9 +34,15 @@ public void draw(){
   }
   if(is3Pressed){
   	starship.turn(-4);
+    starship.right(true);
+  }else{
+    starship.right(false);
   }
   if(is4Pressed){
   	starship.turn(4);
+    starship.left(true);
+  }else{
+    starship.left(false);
   }
   if(is5Pressed){
   	starship.accelerate(0.15);
