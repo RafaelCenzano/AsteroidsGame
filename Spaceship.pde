@@ -45,6 +45,18 @@ class Spaceship extends Floater
       line(-5, -3, -20, -7);
       strokeWeight(1);
     }
+    if(turningRight){
+      strokeWeight(3);
+      stroke(0, 200, 255, 50);
+      line(16, 5, 15, 11);
+      strokeWeight(1);
+    }
+    if(turningLeft){
+      strokeWeight(3);
+      stroke(0, 200, 255, 50);
+      line(16, -5, 15, -11);
+      strokeWeight(1);
+    }
 
     //"unrotate" and "untranslate" in reverse order
     rotate(-1*dRadians);
@@ -52,6 +64,12 @@ class Spaceship extends Floater
   }
   public void moving(boolean check) {
     moving = check;
+  }
+  public void left(boolean check) {
+    turningLeft = check;
+  }
+  public void right(boolean check) {
+    turningRight = check;
   }
   public void hyperspace(){
   	myCenterY = (Math.random() * 600) + 1;
