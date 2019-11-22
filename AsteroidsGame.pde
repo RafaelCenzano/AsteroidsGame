@@ -46,9 +46,9 @@ public void draw(){
   }
   if(is5Pressed){
   	starship.accelerate(0.15);
-    starship.moving(true);
+    starship.traveling(true);
   }else {
-    starship.moving(false);
+    starship.traveling(false);
   }
   starship.move();
   starship.show();
@@ -60,7 +60,7 @@ void keyPressed() {
   if (key == '5') is5Pressed = true;
   if (key == '6') starship.stop();
   if (key == '2' && time == 0){
-    starship.hyperspace();
+    starship.hyperspaceJump();
     time = 30 * 4;
   }
 }
