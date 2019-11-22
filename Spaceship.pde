@@ -122,7 +122,7 @@ class Spaceship extends Floater
     rotate(-1*dRadians);
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }
-  public void moving(boolean check) {
+  public void traveling(boolean check) {
     moving = check;
   }
   public void left(boolean check) {
@@ -131,7 +131,7 @@ class Spaceship extends Floater
   public void right(boolean check) {
     turningRight = check;
   }
-  public void hyperspace(){
+  public void hyperspaceJump(){
     myDirectionX = myDirectionX / 2;
     myDirectionY = myDirectionY / 2;
     hyperspace = true;
