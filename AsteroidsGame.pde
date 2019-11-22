@@ -58,6 +58,7 @@ void keyPressed() {
   if (key == '3') is3Pressed = true;
   if (key == '4') is4Pressed = true;
   if (key == '5') is5Pressed = true;
+  if (key == '6') starship.stop();
   if (key == '2' && time == 0){
     starship.hyperspace();
     time = 30 * 4;
