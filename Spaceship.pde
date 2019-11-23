@@ -2,13 +2,10 @@ class Spaceship extends Floater
 {
   boolean moving, turningLeft, turningRight, hyperspace;
   int teleport;
-  ArrayList <Double> lightningx1, lightningx2, lightningy1, lightningy2;
+  ArrayList <Double> lightning;
   public Spaceship(){
     moving = turningLeft = turningRight = hyperspace = false;
-    lightningx1 = new ArrayList <Double>();
-    lightningx2 = new ArrayList <Double>();
-    lightningy1 = new ArrayList <Double>();
-    lightningy2 = new ArrayList <Double>();
+    lightning = new ArrayList <Double>();
     teleport = 0;
     corners = 10;
     int[] temp1 = {-8, 5, 1, 7, 16, 7, 1, 5, -8};
@@ -23,9 +20,6 @@ class Spaceship extends Floater
     myCenterX = myCenterY = 300; 
     myDirectionX = myDirectionY = 0;
     myPointDirection = 0;
-  }
-  public void stop(){
-    teleport = 30;
   }
   public void show(){
 
@@ -43,29 +37,31 @@ class Spaceship extends Floater
 
     if(teleport > 0){
       teleport -= 1;
-      myDirectionX = myDirectionX / 2;
-      myDirectionY = myDirectionY / 2;
+      if(hyperspace){
+        myDirectionX = myDirectionX / 2;
+        myDirectionY = myDirectionY / 2;
+      }else if(teleport % 4 == 0){
+        myDirectionX = myDirectionX / 2;
+        myDirectionY = myDirectionY / 2;
+      }
     }
 
     if(hyperspace && teleport > 0){
       teleport -= 1;
       if (teleport % 4 == 0){//change lines every 4
-        for(int i = 0; i < lightningx1.size(); i++){
-          lightningx1.remove(i);
-          lightningx2.remove(i);
-          lightningy1.remove(i);
-          lightningy2.remove(i);
+        for(int i = 0; i < lightning.size(); i++){
+          lightning.remove(i);
         }
         for(int i = 0; i < 4; i++){
           double x1 = 0.0;
           double x2 = 0.0 + (Math.random() * 3) - 1;
           double y1 = 0.0;
           double y2 = 0.0 + (Math.random() * 3) - 1;
-          while(x2 > -30 && x2 < 30 || y2 < 30 && y2 > 30){
-            lightningx1.add(x1);
-            lightningx2.add(x2);
-            lightningy1.add(y1);
-            lightningy2.add(y2);
+          while(x2 > -30 * ((60 - teleport) / 50) && x2 < 30 * ((60 - teleport) / 50) || y2 < 30 * ((60 - teleport) / 50) && y2 > -30 * ((60 - teleport) / 50)){
+            lightning.add(x1);
+            lightning.add(x2);
+            lightning.add(y1);
+            lightning.add(y2);
             x1 = x2;
             y1 = y2;
             x2 += (Math.random() * 3) - 1;
@@ -74,12 +70,15 @@ class Spaceship extends Floater
         }
         strokeWeight(2);
         stroke(12, 180, 199, 90);
-        for(int i = 0; i < lightningx1.size() - 4; i += 4){
-          double x1 = lightningx1.get(i);
-          double x2 = lightningx2.get(i);
-          double y1 = lightningy1.get(i);
-          double y2 = lightningy2.get(i);
-          line((float)(x1), (float)(y1), (float)(x2), (float)(y2));
+        for(int i = 0; i < lightning.size() - 4; i += 4){
+          double linex1 = lightning.get(i);
+          double linex2 = lightning.get(i + 1);
+          double liney1 = lightning.get(i + 2);
+          double liney2 = lightning.get(i + 3);
+          line((float)linex1, (float)linex2, (float)liney1, (float)liney2);
+          line((float)linex1 * -1.0, (float)linex2 * -1.0, (float)liney1 * -1.0, (float)liney2 * -1.0);
+          line((float)linex1 * -1.0, (float)linex2, (float)liney1 * -1.0, (float)liney2);
+          line((float)linex1, (float)linex2 * -1.0, (float)liney1, (float)liney2 * -1.0);
         }
         strokeWeight(1);
       }
@@ -131,10 +130,17 @@ class Spaceship extends Floater
   public void right(boolean check) {
     turningRight = check;
   }
+  public void stop(){
+    teleport = 60;
+  }
+  public void warpSpeed() {
+    myDirectionY *= 15;
+    myDirectionX *= 15;
+  }
   public void hyperspaceJump(){
     myDirectionX = myDirectionX / 2;
     myDirectionY = myDirectionY / 2;
     hyperspace = true;
-    teleport = 30;
+    teleport = 60;
   }
 }
