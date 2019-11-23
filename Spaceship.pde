@@ -87,6 +87,7 @@ class Spaceship extends Floater
       myCenterY = (Math.random() * 600) + 1;
       myCenterX = (Math.random() * 600) + 1;
       hyperspace = false;
+      myPointDirection = (int)(Math.random() * 361);
     }
     
     //draw the polygon
