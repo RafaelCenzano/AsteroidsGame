@@ -57,7 +57,7 @@ class Spaceship extends Floater
           double x2 = 0.0 + (Math.random() * 3) - 1;
           double y1 = 0.0;
           double y2 = 0.0 + (Math.random() * 3) - 1;
-          while(x2 > -30 * ((60 - teleport) / 50) && x2 < 30 * ((60 - teleport) / 50) || y2 < 30 * ((60 - teleport) / 50) && y2 > -30 * ((60 - teleport) / 50)){
+          while(x2 > -30 * ((60 - teleport) / 40) && x2 < 30 * ((60 - teleport) / 40) || y2 < 30 * ((60 - teleport) / 40) && y2 > -30 * ((60 - teleport) / 40)){
             lightning.add(x1);
             lightning.add(x2);
             lightning.add(y1);
