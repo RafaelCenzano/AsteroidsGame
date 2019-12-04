@@ -149,8 +149,8 @@ class Spaceship extends Floater
     teleport = 60;
   }
   public void warpSpeed() {
-    myDirectionY *= 15;
-    myDirectionX *= 15;
+    myDirectionY *= 5;
+    myDirectionX *= 5;
   }
   public void hyperspaceJump(){
     myDirectionX = myDirectionX / 2;
