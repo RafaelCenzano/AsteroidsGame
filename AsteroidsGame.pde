@@ -4,6 +4,7 @@ boolean is4Pressed = false;
 boolean is5Pressed = false;
 Star[] stars = new Star[100];
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
+ArrayList <Bullet> projectiles = new ArrayList <Bullet>();
 int time;
 
 public void setup() {
@@ -52,9 +53,18 @@ public void draw(){
   }
   starship.move();
   starship.show();
+  if(projectiles.size() > 0){
+    for(int i = 0; i < projectiles.size(); i++){
+      projectiles.get(i).move();
+      projectiles.get(i).show();
+    }
+  }
 }
 
 void keyPressed() {
+  if (key == '1'){
+    projectiles.add(new Bullet(starship));
+  }
   if (key == '3') is3Pressed = true;
   if (key == '4') is4Pressed = true;
   if (key == '5') is5Pressed = true;
