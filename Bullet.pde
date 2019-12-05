@@ -8,8 +8,8 @@ class Bullet extends Floater{
         myDirectionY = 5 * Math.sin(dRadians) + starship.getDirectionY();
     }
     public void show(){
-        fill(240, 240, 240);
-        stroke(240, 240, 240);
+        fill(212, 50, 38);
+        stroke(212, 50, 38);
         strokeWeight(2);
     
         //translate the (x,y) center of the ship to the correct position
@@ -21,10 +21,16 @@ class Bullet extends Floater{
         //rotate so that the polygon will be drawn in the correct direction
         rotate(dRadians);
 
-        line(0, 0, 4, 0);
+        line(0, 0, 5, 0);
 
         //"unrotate" and "untranslate" in reverse order
         rotate(-1*dRadians);
         translate(-1*(float)myCenterX, -1*(float)myCenterY);
+    }
+    public void impactCheckX(){
+        return myCenterX + 5;
+    }
+    public void impactCheckY(){
+        return myCenterY;
     }
 }
