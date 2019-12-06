@@ -69,22 +69,33 @@ public void draw(){
   starship.move();
 
   // Check for contact
-  ArrayList <Integer> removal = new ArrayList <Integer>();
-  if(asteroids.size() != 0 && projectiles.size() != 0){
-    boolean check = false;
-    for(int i = 0; i < asteroids.size(); i++){
-      for(int k = 0; k < projectiles.size(); k++){
-        if(dist((float)projectiles.get(k).impactCheckX(), (float)projectiles.get(k).impactCheckY(), (float)asteroids.get(i).getAsteroidX(), (float)asteroids.get(i).getAsteroidY()) <= 5){
-          removal.add(i);
-          removal.add(k);
-          break;
+  for(int i = asteroids.size() - 1; i >= 0; i--){
+    ArrayList <Integer> removinga = new ArrayList <Integer>();
+    ArrayList <Integer> removingp = new ArrayList <Integer>();
+    for(int k = 0; k < projectiles.size(); k++){
+      float ax = (float)asteroids.get(i).getAsteroidX();
+      float ay = (float)asteroids.get(i).getAsteroidY();
+      float px = (float)projectiles.get(k).impactCheckX();
+      float py = (float)projectiles.get(k).impactCheckY();
+      if(dist(ax, ay, px, py) < 10){
+        boolean check = true;
+        for(int num : removinga){
+          if(num == i){
+            check = false;
+          }
         }
+        if(check){
+          removinga.add(i);
+        }
+        removingp.add(k);
       }
     }
-  }
-  for(int i = 0; i < removal.size() - 1; i += 2){
-    asteroids.remove(removal.get(i));
-    projectiles.remove(removal.get(i + 1));
+    for(int l = 0; l < removinga.size(); l++){
+      asteroids.remove(removinga.get(l));
+    }
+    for(int j = 0; j < removingp.size(); j++){
+      projectiles.remove(removingp.get(j));
+    }
   }
 
   // show asteroids
