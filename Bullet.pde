@@ -27,10 +27,10 @@ class Bullet extends Floater{
         rotate(-1*dRadians);
         translate(-1*(float)myCenterX, -1*(float)myCenterY);
     }
-    public void impactCheckX(){
+    public double impactCheckX(){
         return myCenterX + 5;
     }
-    public void impactCheckY(){
+    public double impactCheckY(){
         return myCenterY;
     }
 }
