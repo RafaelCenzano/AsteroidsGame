@@ -29,9 +29,9 @@ class Asteroid extends Floater
   	myPointDirection += rotation;
   }
   public double getAsteroidX(){
-    return myCenterY;
+    return myCenterX;
   }
   public double getAsteroidY(){
-    return myCenterX;
+    return myCenterY;
   }
 }
