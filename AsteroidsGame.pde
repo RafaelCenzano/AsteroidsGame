@@ -23,42 +23,84 @@ public void setup() {
 
 public void draw(){
   background(0);
+  // Variable to countdown time at 30 fps
   if(time != 0){
     time -= 1;
   }
+
+  // Stars
   for(int i = 0; i < stars.length; i++){
     stars[i].show();
   }
-  for(int i = 0; i < asteroids.size(); i++){
-    asteroids.get(i).move();
-    asteroids.get(i).show();
-  }
+
+  // Key inputs for starship
   if(is3Pressed){
-  	starship.turn(-4);
+    starship.turn(-4);
     starship.right(true);
   }else{
     starship.right(false);
   }
   if(is4Pressed){
-  	starship.turn(4);
+    starship.turn(4);
     starship.left(true);
   }else{
     starship.left(false);
   }
   if(is5Pressed){
-  	starship.accelerate(0.15);
+    starship.accelerate(0.15);
     starship.traveling(true);
   }else {
     starship.traveling(false);
   }
-  starship.move();
-  starship.show();
+
+  // move asteroids
+  if(asteroids.size() > 0){
+    for(int i = 0; i < asteroids.size(); i++){
+      asteroids.get(i).move();
+    }
+  }
+  // move projectiles
   if(projectiles.size() > 0){
     for(int i = 0; i < projectiles.size(); i++){
       projectiles.get(i).move();
+    }
+  }
+  // move starship
+  starship.move();
+
+  // Check for contact
+  ArrayList <Integer> removal = new ArrayList <Integer>();
+  if(asteroids.size() != 0 && projectiles.size() != 0){
+    boolean check = false;
+    for(int i = 0; i < asteroids.size(); i++){
+      for(int k = 0; k < projectiles.size(); k++){
+        if(dist((float)projectiles.get(k).impactCheckX(), (float)projectiles.get(k).impactCheckY(), (float)asteroids.get(i).getAsteroidX(), (float)asteroids.get(i).getAsteroidY()) <= 5){
+          removal.add(i);
+          removal.add(k);
+          break;
+        }
+      }
+    }
+  }
+  for(int i = 0; i < removal.size() - 1; i += 2){
+    asteroids.remove(removal.get(i));
+    projectiles.remove(removal.get(i + 1));
+  }
+
+  // show asteroids
+  if(asteroids.size() > 0){
+    for(int i = 0; i < asteroids.size(); i++){
+      asteroids.get(i).show();
+    }
+  }
+  // show projectiles
+  if(projectiles.size() > 0){
+    for(int i = 0; i < projectiles.size(); i++){
       projectiles.get(i).show();
     }
   }
+  // show starship
+  starship.show();
 }
 
 void keyPressed() {
