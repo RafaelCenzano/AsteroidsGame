@@ -1,11 +1,9 @@
 Spaceship starship;
-boolean is3Pressed = false;
-boolean is4Pressed = false;
-boolean is5Pressed = false;
+boolean is1Pressed, is3Pressed, is4Pressed, is5Pressed;
 Star[] stars = new Star[100];
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
 ArrayList <Bullet> projectiles = new ArrayList <Bullet>();
-int time;
+int time, cooldown;
 
 public void setup() {
   time = 0;
@@ -19,6 +17,10 @@ public void setup() {
   for(int i = 0; i < (int)(Math.random() * 5) + 8; i++){
     asteroids.add(new Asteroid());
   }
+  is1Pressed = false;
+  is3Pressed = false;
+  is4Pressed = false;
+  is5Pressed = false;
 }
 
 public void draw(){
@@ -26,6 +28,9 @@ public void draw(){
   // Variable to countdown time at 30 fps
   if(time != 0){
     time -= 1;
+  }
+  if(cooldown != 0){
+    cooldown -= 1;
   }
 
   // Stars
@@ -52,6 +57,10 @@ public void draw(){
   }else {
     starship.traveling(false);
   }
+  if(is1Pressed && cooldown == 0){
+    projectiles.add(new Bullet(starship));
+    cooldown = 20;
+  }
 
   // move asteroids
   if(asteroids.size() > 0){
@@ -70,31 +79,24 @@ public void draw(){
 
   // Check for contact
   for(int i = asteroids.size() - 1; i >= 0; i--){
-    ArrayList <Integer> removinga = new ArrayList <Integer>();
     ArrayList <Integer> removingp = new ArrayList <Integer>();
+    boolean asteroidcheck = false;
     for(int k = 0; k < projectiles.size(); k++){
       float ax = (float)asteroids.get(i).getAsteroidX();
       float ay = (float)asteroids.get(i).getAsteroidY();
       float px = (float)projectiles.get(k).impactCheckX();
       float py = (float)projectiles.get(k).impactCheckY();
-      if(dist(ax, ay, px, py) < 10){
-        boolean check = true;
-        for(int num : removinga){
-          if(num == i){
-            check = false;
-          }
-        }
-        if(check){
-          removinga.add(i);
-        }
+      if(dist(ax,ay,px,py)<13){
+        asteroidcheck = true;
         removingp.add(k);
       }
     }
-    for(int l = 0; l < removinga.size(); l++){
-      asteroids.remove(removinga.get(l));
+    if(asteroidcheck){
+      asteroids.remove(i);
     }
-    for(int j = 0; j < removingp.size(); j++){
-      projectiles.remove(removingp.get(j));
+    for(int j = removingp.size() - 1; j >= 0; j--){
+      int numtoremove = removingp.get(j);
+      projectiles.remove(numtoremove);
     }
   }
 
@@ -115,9 +117,7 @@ public void draw(){
 }
 
 void keyPressed() {
-  if (key == '1'){
-    projectiles.add(new Bullet(starship));
-  }
+  if (key == '1') is1Pressed = true;
   if (key == '3') is3Pressed = true;
   if (key == '4') is4Pressed = true;
   if (key == '5') is5Pressed = true;
@@ -129,6 +129,7 @@ void keyPressed() {
   if (key == '6') starship.warpSpeed();
 }
 void keyReleased() {
+  if (key == '1') is1Pressed = false;
   if (key == '3') is3Pressed = false;
   if (key == '4') is4Pressed = false;
   if (key == '5') is5Pressed = false;
