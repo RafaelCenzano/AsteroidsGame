@@ -86,13 +86,19 @@ public void draw(){
       float ay = (float)asteroids.get(i).getAsteroidY();
       float px = (float)projectiles.get(k).impactCheckX();
       float py = (float)projectiles.get(k).impactCheckY();
-      if(dist(ax,ay,px,py)<9){
+      if(dist(ax, ay, px, py) < 9){
         asteroidcheck = true;
         removingp.add(k);
       }
     }
     if(asteroidcheck){
+      boolean sizeCheck = asteroids.get(i).sizing();
       asteroids.remove(i);
+      if(sizeCheck){
+        for(int rand = 0; rand < (int)(Math.random() * 3) + 1; rand++){
+          asteroids.add(new Asteroid(0.55));
+        }
+      }
     }
     for(int j = removingp.size() - 1; j >= 0; j--){
       int numtoremove = removingp.get(j);
