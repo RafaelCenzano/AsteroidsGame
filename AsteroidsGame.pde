@@ -86,7 +86,7 @@ public void draw(){
       float ay = (float)asteroids.get(i).getAsteroidY();
       float px = (float)projectiles.get(k).impactCheckX();
       float py = (float)projectiles.get(k).impactCheckY();
-      if(dist(ax,ay,px,py)<13){
+      if(dist(ax,ay,px,py)<9){
         asteroidcheck = true;
         removingp.add(k);
       }
