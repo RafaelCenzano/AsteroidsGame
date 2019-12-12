@@ -60,7 +60,7 @@ class Asteroid extends Floater
   public double getAsteroidY(){
     return myCenterY;
   }
-  public boolean sizing(){
+  public boolean theSizing(){
     return sizing >= 1;
   }
 }
