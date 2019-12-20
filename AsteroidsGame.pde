@@ -93,10 +93,12 @@ public void draw(){
     }
     if(asteroidcheck){
       boolean sizeCheck = asteroids.get(i).theSizing();
+      originX = asteroids.get(i).getAsteroidX();
+      originY = asteroids.get(i).getAsteroidY();
       asteroids.remove(i);
       if(sizeCheck){
         for(int rand = 0; rand < (int)(Math.random() * 3) + 1; rand++){
-          asteroids.add(new Asteroid(0.55));
+          asteroids.add(new Asteroid(0.55, originX, originY));
         }
       }
     }
