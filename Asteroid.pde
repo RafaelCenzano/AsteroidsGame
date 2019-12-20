@@ -26,7 +26,7 @@ class Asteroid extends Floater
     myColor = color(70, 70, 70);
     sizing = 1;
   }
-  public Asteroid(double multiplyer){
+  public Asteroid(double multiplyer, double x, double y){
     sizing = multiplyer;
     int[] tempA1 = {2, 5,  3, -2, -3, -1};
     int[] tempA2 = {3, 0, -2, -2,  0, 3};
@@ -43,8 +43,8 @@ class Asteroid extends Floater
         yCorners[i] = (int)(tempA2[i] * ((Math.random() * 7) + 0.25)*sizing);
       }
     }
-    myCenterX = Math.random() * 600;
-    myCenterY = Math.random() * 600;
+    myCenterX = x + (Math.random() * 11) - 5;
+    myCenterY = y + (Math.random() * 11) - 5;
 
     myDirectionX = (Math.random() * 5) - 2;
     myDirectionY = (Math.random() * 5) - 2;
